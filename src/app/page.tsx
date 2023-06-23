@@ -2,6 +2,7 @@
 import { useAtom } from 'jotai'
 import { collectionAtom, nftsAtom, walletAtom } from '@/atoms'
 import { alchemy } from '@/lib/alchemy'
+import { NFTCard } from '@/components/NftCard'
 
 export default function Home() {
   const [wallet, setWalletAddress] = useAtom(walletAtom)
@@ -25,7 +26,7 @@ export default function Home() {
       await fetchNFTsForCollection()
     } else await fetchNFTsForOwner()
 
-    console.log(nfts)
+    // console.log(nfts)
   }
 
   return (
@@ -51,6 +52,11 @@ export default function Home() {
         >
           Let&apos;s go!{' '}
         </button>
+      </div>
+      <div className='flex flex-wrap gap-y-12 mt-4 w-5/6 gap-x-2 justify-center'>
+        {nfts.length
+          ? nfts.map((nft) => <NFTCard key={nft.tokenId} nft={nft} />)
+          : null}
       </div>
     </div>
   )
